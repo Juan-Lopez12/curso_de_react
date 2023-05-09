@@ -1,10 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+
+
+const nombre = "Juan";
+const JSX = (
+  <>
+    <h1 className='title' style={{color: 'red'}}>Hola {nombre}!</h1>
+    <p>Como estas!</p>
+  </>
+)
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  JSX
 )
