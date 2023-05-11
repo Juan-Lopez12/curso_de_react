@@ -1,25 +1,33 @@
-import React from 'react' // eslint-disable-line
+import React, { StrictMode, useState } from 'react' // eslint-disable-line
 import ReactDOM from 'react-dom/client'
 import User from './components/User'
-
-const sesion = true;
+import FormSession from './components/FormSession'
+import Counter from './components/Counter'
+import './index.css'
+import Button from './elements/Button'
 
 const App = () => { // eslint-disable-line
+  const [session, changeSession] = useState(true)
+
   return (
-    <>
-      {sesion ? <User /> : <h1>No haz iniciado sesion</h1>}
-    </>
+    <div className='contenedor'>
+      {session ?
+      <div>
+        <User />
+        <Counter toPlus={5} toMinus={3} restart={0} />
+        <Button $long $marginTop onClick={() => changeSession(!session)}>Cerrar Sesion</Button>
+      </div>
+      :
+      <div>
+        <FormSession changeSession={changeSession} />        
+      </div>
+      }
+    </div>
   );
 };
 
-// const verificarSesion = (sesion) => {
-//   if (sesion) {
-//     return JSX;
-//   } else {
-//     return <h1>No haz iniciado sesión</h1>
-//   }
-// }
-
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <App />
+  <StrictMode>
+    <App />
+  </StrictMode>
 )

@@ -1,23 +1,27 @@
 import React from 'react' // eslint-disable-line
-// import ReactDOM from 'react-dom'
 import { Title } from './Title'
+import styled from 'styled-components'
 
 const User = () => {
-    const pais = "Venezuela"
-    const amigos = ["Alejandro", "Manuel", "Cesar"];
+    const country = "Venezuela"
+    const friends = ["Alejandro", "Manuel", "Cesar"];
 
     return (
     <>
         <Title user="Juan" color="green" />
-        <Title user="Manuel" color="blue" />
-        {pais && <p>Iniciaste sesion desde: {pais} </p>}
-        <p>Tu lista de amigos es:</p>
+        <Title />
+        {country && <p>Iniciaste sesion desde: {country} </p>}
+        <Paragraph>Tu lista de amigos es:</Paragraph>
         <ul>
-        {amigos.map((amigo, index) => <li key={index}>{amigo}</li>)}
+        {friends.map((friend, index) => <li key={index}>{friend}</li>)}
         </ul>
-        <p>Como estas! y que tengas un buen día. Saludos!</p>
+        <Paragraph>Como estas! y que tengas un buen día. Saludos!</Paragraph>
     </>
     );
 }
+
+const Paragraph = styled.p`
+    margin: 20px 0;
+`;
 
 export default User;

@@ -153,9 +153,9 @@ const User = () => {
 
 //^ ----- ----- 11,2.- las propiedades tambien peuden recibir arrays, objetos, numeros, varoles booleanos e incluso elementos JSX etc ----- ----- 
 
-const TitleRed = ({ user = "Anon", color }) => {
-    const color = "red";
+{/* <Title user="Juan" color="green" /> */}
 
+const TitleRed = ({ user = "Anon", color }) => {
     return (<h1 className='title' style={{color: color}}>Hola {user}!</h1>)
 }
 
@@ -166,3 +166,187 @@ const TitleBlue = (props) => {
 }
 
 
+
+//^ ----------------------------------- 
+//^ -     ESTADO DE LOS COMPONENTES   - 
+//^ ----------------------------------- 
+
+
+//^ ----- ----- 12.- Podemos ejecutar evento con funciones dentro de los componentes pasandole de que tipo sera el evento directamente ----- ----- 
+
+//^ ----- ----- 13.- Si queremos que un componente cambie o no se muestre debemos usar el estado para que el componente se vuelva a renderizar con el nuevo valor ----- ----- 
+
+const cerrarSesion = () => {
+    alert("Hola")
+}
+
+<>
+    <button onClick={cerrarSesion}>Cerrar Sesion</button>
+    
+    <button onClick={() => alert("Cerramos sesion")}>Cerrar Sesion</button>
+</>
+
+
+//^ ----- ----- 13,1.- Usaremos "useState" importandolo de "React" y luego usaremos la destructuración: const [estado, fnCambiarEstado] = useState(valorInicial) ----- ----- 
+
+//^ ----- ----- 13,2.- Cuando el estado cambie React siempre va a volver a cargar el componente, y cada componente tendra su propio estado, renderizandose de forma independiente ----- ----- 
+
+
+const [session, changeSession] = useState(true)
+
+{/* <>
+    <button onClick={() => changeSession(!session)}>Cerrar Sesion</button>
+    
+    <button onClick={() => changeSession(!session)}>Cerrar Sesion</button>
+</> */}
+
+
+
+//^ ----------------------------------- 
+//^ -       FORMULARIOS EN REACT      - 
+//^ ----------------------------------- 
+
+
+//^ ----- ----- 14.- podemos trabajar con los inputs usando los evento "onChange" ----- ----- 
+
+//^ ----- ----- 15.- Tambien podemos usar el evento "onSubmit" para ejecutar codigo al enviar los datos, y usar el metodo "preventDefault()" para evitar que se envien los datos ----- ----- 
+
+//^ ----- ----- 16.- Al mismo tiempo tambien podemos pasarle la función de estado del componente padre al hijo en forma de propiedad, y asi poder ejecutarla para cambiar el estado ----- ----- 
+
+<FormSession changeSession={changeSession} />
+
+const onChange = (e) => {
+    if (e.target.name === 'user') {
+        changeUser(e.target.value)
+    } else if (e.target.name === 'password') {
+        changePassword(e.target.value)
+    }
+}
+
+const onSubmit = (e) => {
+    e.preventDefault()
+    if (user === "Juan" && password === "123") {
+        changeSession(true)
+    } else {
+        alert("Datos incorrectos!")
+        changeUser("")
+        changePassword("")
+    }
+}
+
+<form action="" onSubmit={onSubmit}>
+    <input 
+        type="text" 
+        name="user" 
+        id="user" 
+        value={user}
+        onChange={onChange}
+    />
+</form>
+
+
+//^ ----------------------------------- 
+//^ -   COMPONENTES BASADOS EN CLASE  - 
+//^ ----------------------------------- 
+
+
+//^ ----- ----- 17.- ya no se usan y es mejor dejar de usarlos. Para mas información ir al componente en: "./components/CounterClass" y la clase de "Componentes basados en clase" ----- ----- 
+
+
+
+//^ ----------------------------------- 
+//^ - CICLO DE VIDA DE LOS COMPONENTES - 
+//^ ----------------------------------- 
+
+
+//^ ----- ----- 18.- En los componentes basados en clases estan los "metodos de ciclo de vida" los cuales ejecutaran codigo si el componente: se cargo, se actualizo o se desmonto ----- ----- 
+
+//^ ----- ----- 18,1.- En los componentes funcionales tendremos lo mismo pero usando "Hooks" ----- ----- 
+
+//^ ----- ----- 18,2.- los metodos son: componentDidMount(){}, componentDidUpdate(lastProps, lastState){}, componente ----- -----
+
+
+
+//^ ----------------------------------- 
+//^ -       ESTILOS CSS EN REACT      - 
+//^ ----------------------------------- 
+
+
+
+//^ ----------------------------------- 
+//^ -       USANDO UN ARCHIVO .CSS    - 
+//^ ----------------------------------- 
+
+
+//^ ----- ----- 19.- Si queremos usar archivos CSS para estilar, le pondremos al archivo el mismo nombre que del componente y crearemos un archivo CSS por cada componente y lo importamos en dicho componente ----- ----- 
+
+//^ ----- ----- 19,1.- importamos el archivo CSS usando "import './index.css'" ----- ----- 
+
+//^ ----- ----- 19,2.- Si usamos archivos CSS usando el mismo nombre de clases, estas van a chocar cuando se cargue el componente. Ej una clase boton chocando con otra clase boton en los estilos ----- ----- 
+
+
+
+//^ ----------------------------------- 
+//^ -          MÓDULOS DE CSS         - 
+//^ ----------------------------------- 
+
+//^ ----- ----- Ventaja de usar módulos es que las clases no entraran en conflicto ----- ----- 
+
+//^ ----- ----- 20.- Para trabajar con los "módulos de css" hay que escribir los archivos como "nombre.module.css" y exportarlo con "import style from" Ej: "import style from './nombre.module.css'" ----- ----- 
+
+//^ ----- ----- 20,1.- y luego para acceder a las clases hay que escribirlos como "className={style.boton}" ----- ----- 
+
+
+
+//^ ----------------------------------- 
+//^ -        STYLED COMPONENTS        - 
+//^ ----------------------------------- 
+
+
+//^ ----- ----- 21.- Importamos con: "import styled from 'styled-components'" para utilizarlo ----- ----- 
+
+//^ ----- ----- 22.- Luego creamos una constante y la primera letra en mayuscula y va a ser igual a: style.tipoElemento` ` y dentro escribiremos todo el codigo css, luego usaremos ese componente como un elemento HTML ----- ----- 
+
+//^ ----- ----- 22,1.- Ejemplo: const Paragraph = styled.p`margin: 20px 0;`; ----- ----- 
+//^ ----- ----- <Paragraph>Esto es un parrafo</Paragraph> ----- ----- 
+
+
+//^ ----- ----- 23.- Crear una carpeta "elements" si queremos guardar los elementos creados en archivos independientes, y luego los exportamos ----- ----- 
+
+
+//^ ----- ----- 24.- usar "&:hover {}" el simbolo de "&" y el nombre de la pseuda clase u pseudo elemento para añadirlos dentro del propio elemento ----- ----- 
+
+//^ ----- ----- 24,1.- el "&" hace referencia al elemento como si fuera un "this" ----- ----- 
+
+
+//^ ----------------------------------- 
+//^ -   STYLED COMPONENTS DINAMICOS   - 
+//^ ----------------------------------- 
+
+
+//^ ----- ----- 25.- Podemos añadirles propiedades a estos "STYLED COMPONENTS" haciendolos mas dinamicos ----- ----- 
+
+//^ ----- ----- 25,1.- "import styled, { css } from 'styled-components'" primero importamos "css" desde "styled" ----- ----- 
+
+//^ ----- ----- 25,2.- luego le añadimos una propiedad al componente con el signo de dolar al principio. Ej: "$black" ----- ----- 
+
+//^ ----- ----- 25,3.- ${props => props.$black && css` `} y añadimos llaves y dentro le pasamos las propiedades, ejecutamos una función, el nombre de la propiedad y luego "&& css``" ----- ----- 
+
+//^ ${props => props.$black && css`
+//^ background: #000;
+//^ color: #fff;
+//^ ` }
+
+
+//^ ----- ----- 26.- Tambien podemos añadir condicionales a los estilos ----- ----- 
+
+//^ ----- ----- 26,1.- width: ${props => props.$long ? '100%' : 'auto'}; abrimos llaves y dentro pasamos las propiedades, y luego usamos el operador ternario, si existe la propiedad va a retornar "100%" y si no existe (para el resto de los componentes) retornara "auto" ----- ----- 
+
+
+
+//^ ----------------------------------- 
+//^ -          REACT HOOKS            - 
+//^ ----------------------------------- 
+
+
+//^ ----- ----- 27.-  ----- ----- 
