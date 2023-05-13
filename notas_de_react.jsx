@@ -579,3 +579,43 @@ const onSubmit = (e) => {
 //^ {/* <FontAwesomeIcon icon={faEyeSlash} className='header__icon-button' /> */}
 
 
+//^ ----------------------------------- 
+//^ -          NOMBRAR TAREAS         - 
+//^ ----------------------------------- 
+
+//^ ----- ----- 42.- Para obtener el valor de un "input", primero hacemos una función "handleSubmit" y usamos el preventDefault() para evitar que envie los datos  ----- ----- 
+
+//^ ----- ----- 42,1.- y creamos un estado que sera el valor del input, y una función del estado que tomara el valor del input ----- ----- 
+
+// const [inputTask, setInputTask] = useState('')
+
+// const handleInput = (e) => {
+//     setInputTask(e.target.value)
+// }
+
+// const handleSubmit = (e) => {
+//     e.preventDefault();
+//     setTask([...tasks, {id: 3, text: inputTask, done: false}])
+// }
+
+// <form action="" onSubmit={handleSubmit} >
+//     <input
+//         type="text"
+//         placeholder="Escribe una tarea"
+//         value={inputTask}
+//         onChange={(e) => handleInput(e)}
+//     />
+// </form>
+
+
+//^ ----------------------------------- 
+//^ -    IDENTIFICADORES CON "UUID"   - 
+//^ ----------------------------------- 
+
+//^ ----- ----- https://www.npmjs.com/package/uuid los "UUID" nos generarán identificadores unicos ----- ----- 
+
+//^ npm install uuid
+
+//^ import { v4 as uuidv4 } from 'uuid';
+
+
