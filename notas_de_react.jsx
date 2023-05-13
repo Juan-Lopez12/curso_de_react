@@ -348,5 +348,212 @@ const onSubmit = (e) => {
 //^ -          REACT HOOKS            - 
 //^ ----------------------------------- 
 
+//^ ----- ----- Los hooks tienen 2 reglas, se tiene que crear dentro del componente hasta arriba y no peude ser usado dentro de bucles o condicionales ----- ----- 
 
-//^ ----- ----- 27.-  ----- ----- 
+
+//^ ----------------------------------- 
+//^ -          HOOK useEffect         - 
+//^ ----------------------------------- 
+
+//^ ----- ----- 27.- "useEffect()" nos permitira usar los metodos de ciclos de vida en los componentes funcionales, lo importamos desde "React" y llamamos a una función de callback dentro de "useEffect()" ----- ----- 
+
+//^ ----- ----- 27,1.- "useEffect()" es el equivalente a "componentDidMount" y a "componentDidUpdate", se ejecutara el "useEffect" cada vez que el componente se renderize ----- ----- 
+
+//^ useEffect(() => {
+//^     console.log('El componente se ha cargado!')
+//^ })
+
+
+//^ ----- ----- 28.- "useEffect(() => {}, [])" si le pasamos como segundo parametro un "array" (sera un arreglo de dependencias) y lo dejamos vacio, useEffect solo se ejecutara cuando se cargue el componente por primera vez ----- ----- 
+
+//^ ----- ----- 28,1.- Este seria el equivalente a "componentDidMount" ----- ----- 
+
+//^ useEffect(() => {
+//^     console.log('Primer renderizado del componente!')
+//^ }, [])
+
+
+//^ ----- ----- 29.- Si le pasamos el estado dentro del array, useEffect solo se ejecutara cuando ESE estado/dependencia cambie ----- ----- 
+
+//^ ----- ----- 30.- Tambien le podemos pasar mas de un estado/dependencia ----- ----- 
+
+//^ useEffect(() => {
+//^     console.log('Primer renderizado del componente!')
+//^ }, [count, count2])
+
+
+//^ ----- ----- 31.- Para el equivalente a "componentDidUnmount" le pasaremos un return con una función callback, y un array vacio ----- ----- 
+
+//^ useEffect(() => {
+//^     return(() => {
+//^         console.log('Adiós componente!')
+//^     })
+//^ }, [])
+
+
+
+//^ ----------------------------------- 
+//^ -          HOOK useReducer        - 
+//^ ----------------------------------- 
+
+
+//^ ----- ----- useReducer funciona como el useState, pero nos permitira administrar la logica para cambiar el estado AFUERA del componente, pudiendo exportarla si queremos, al mismo tiempo que tambien nos permitira separar las funciones de mejor manera ----- ----- 
+
+
+//^ ----- ----- 32.- exportamos useReducer desde react, adentro del componente llamamos el hook, y afuera del componente declaramos la función de "reducer(state, action)" ----- ----- 
+
+
+//^ ----- ----- 33.- useReducer(reducer, initialState) recibe 2 parametros, la función reducer, y el estado inicial ----- ----- 
+
+//^ ----- ----- 33,1.- const [state, dispatch] = useReducer() al mismo tiempo nos devolvera un array, con el estado de la aplicación y una función de "dispatch" ----- ----- 
+
+
+//^ ----- ----- 34.- al llamar a "dispatch()" podemos pasarle una acción, especificarle que tipo de acción es para que haga una u otra cosa ----- ----- 
+
+//^ ----- ----- 34,1.- las "acciones" son objetos de javascript, normalmente le pondremos la propiedad de "type" y la descripción indicara el valor de la acción identificando que hara, lo pondremos en mayuscula ----- ----- 
+
+//^ <Button onClick={() => dispatch({ type: 'PLUS' })}>Aumentar</Button> 
+
+
+
+//^ ----- ----- 35.- el "initialState" podemos definirlo fuera del componente y pasarselo al "useReducer" como variable ----- -----  
+
+//^ ----- ----- 35,1.- el valor de "initiaLState" puede ser lo que queramos pero normalmente sera un objeto con la propiedad y valor  ----- ----- 
+
+//^ ----- ----- 35,2.- Ej: initialCounter = {counter: 0} ----- ----- 
+
+
+//^ ----- ----- 36.- el "reducer" va a ser una función que escuche que tipo de "acción" estamos ejecutando con el "dispatch", y dependiendo de la acción va a cambiar el estado ----- ----- 
+
+//^ ----- ----- 36,1.-  "reducer(state, action)" el reducer recibe 2 valores, el estado que va a cambiar, y la acción ----- ----- 
+
+//^ ----- ----- 36,2.- dentro del reducer escribiremos un "switch(action.type){}" y le pasaremos la acción y accedemos al tipo ----- ----- 
+
+//^ ----- ----- 36,3.- dentro ponemos el caso y haremos un "return" de un nuevo objeto, y entramos al estado y como el estado es un objeto, le indicamos a que propiedad queremos acceder ----- ----- 
+
+//^ ----- ----- 36,4.- al final del swithc añadirmos un "default:" y devolveremos el estado en caso de que no haya ningun "case" ----- ----- 
+
+//^ const reducer = (state, action) => {
+//^     switch(action.type){
+//^         case 'PLUS':
+//^             return {counter: state.counter + 1}
+//^         case 'MINUS':
+//^             return {counter: state.counter - 1}
+//^         case 'RESTART':
+//^             return {counter: 0}
+//^         default:
+//^             return state;
+//^     }
+//^ }
+
+
+//^ ----- ----- 37.- Como el nuevo estado en el componente es un objeto, accederemos a el como tal: {state.counter} ----- ----- 
+
+
+
+//^ ----------------------------------- 
+//^ -           CUSTOM HOOKS          - 
+//^ ----------------------------------- 
+
+
+//^ ----------------------------------- 
+//^ - LOGICA DE PINTAR LA INFORMACIÓN DE UNA "API" - 
+//^ ----------------------------------- 
+
+
+// const Blog = () => {
+//     // Usamos useState para guardar los datos de la "API" en un "ARRAY"
+//     // y luego las dibujamos en el componente
+//     const [articles, setArticle] = useState([])
+//     // un useState poner un mensaje de "cargando"
+//     const  [loading, setLoading] = useState(true)
+
+//     // con useEffect llamamos a la "API" cuando se inicie el componente por primera vez
+//     useEffect(() => {
+//         // Simulacro de llamar a la "API"
+//         setTimeout(() => {
+//             // Aqui setteamos el estado, guardamos los objetos dentro de un "ARRAY" en el estado
+//             setArticle([
+//                 {
+//                     id: 1,
+//                     title: 'Titulo del primer articulo'
+//                 },
+//                 {
+//                     id: 2,
+//                     title: 'Titulo del segundo articulo'
+//                 },
+//                 {
+//                     id: 3,
+//                     title: 'Titulo del tercer articulo'
+//                 }
+//             ])
+//             // estado del mensaje de carga pasa a ser "false"
+//             setLoading(false)
+//         }, 3000);
+//     }, [])
+
+//     return (
+//         <BlogContainer>
+//             <Title>Blog</Title>
+//             {/* con un ternario pintamos que esta cargando hasta que la "API" cargue/responda. Entonces ahi vamos a pintar un div con los articulos */}
+//             {loading ?
+//                 <Title>Cargando . . .</Title>
+//             :
+//                 <div>
+//                     {/* y con un map recorremos el "ARRAY" de objetos de la "API" y escribimos su titulo, y le pasamos la propiedad "key" con su identificador */}
+//                     {articles.map(article => {
+//                         return <Article key={article.id}>{article.title}</Article>
+//                     })}
+//                 </div>
+//             }
+//         </BlogContainer>
+//     )
+// }
+
+
+//^ ----------------------------------- 
+//^ -        CREAR CUSTOM HOOKS       - 
+//^ ----------------------------------- 
+
+
+//^ ----- ----- "Los custom hooks" nos permitira guardar lógica o lógica que involucre otros hooks, y guardarlos en forma de hooks para reutilizarlo ----- ----- 
+
+//^ ----- ----- 38.- creamos una carpeta "hooks" en src, y todos los hooks que creemos le pondremos "useNombre" y el nombre del hook ----- ----- 
+
+//^ ----- ----- 38,1.- importaremos los hooks que vayamos a utilizar, y creamos una función tipo componente funcional, pero  no devolveremos codigo "JSX" en el "return", en su lugar retornaremos un valor o un "array" [] ----- ----- 
+
+
+//^ ----- ----- 39.- Al crear el hook, lo que hay que hacer al final es devolver los valores que nos de nuestra lógica, o los valores que nos devuelva el estado ----- ----- 
+
+//^ ----- ----- 39,1.- usaremos "return []" el return para devolver los valores, o un "ARRAY" con los valores ----- ----- 
+
+//^ Ej: return [articles, loading];
+
+
+//^ ----- ----- 40.- luego importaremos nuestro hook y extraeremos sus valores como un hook normal, tambien podemos pasarle parametros. Ej: const [articles, loading] = useGetArticles(parametro?) ----- ----- 
+
+// const useGetArticles = (parametro?) => {
+//     const [articles, setArticle] = useState([])
+//     const  [loading, setLoading] = useState(true)
+
+//     useEffect(() => {
+//         setTimeout(() => {
+//             setArticle([
+//                 {id: 1, title: 'Titulo del primer articulo'},
+//                 {id: 2, title: 'Titulo del segundo articulo'},
+//                 {id: 3, title: 'Titulo del tercer articulo'},
+//             ])
+//             setLoading(false)
+//         }, 3000);
+//     }, [])
+
+//     return [articles, loading];
+// }
+
+
+
+//^ ----------------------------------- 
+//^ -   PROYECTO 1  APP DE LISTA DE TAREAS - 
+//^ ----------------------------------- 
+
+
