@@ -557,3 +557,25 @@ const onSubmit = (e) => {
 //^ ----------------------------------- 
 
 
+//^ ----------------------------------- 
+//^ -            FONT AWESOME         - 
+//^ ----------------------------------- 
+
+//^ ----- ----- 41.- Podemos usar "Font AWESOME" en nuestros proyectos de react, para ellos lo instalamos usando: ----- ----- 
+
+//^ npm i --save @fortawesome/fontawesome-svg-core
+//^ npm install --save @fortawesome/free-solid-svg-icons
+//^ npm install --save @fortawesome/react-fontawesome
+
+
+//^ ----- ----- 41,1.- luego lo importamos "font Awesome" y los iconos que vayamos a utilziar ----- ----- 
+
+//^ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+//^ import { faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+
+
+//^ ----- ----- 41,2.- y lo usamos en forma de componente, con la propiedad "icon" y el nombre del icono ----- ----- 
+
+//^ {/* <FontAwesomeIcon icon={faEyeSlash} className='header__icon-button' /> */}
+
+
