@@ -619,3 +619,93 @@ const onSubmit = (e) => {
 //^ import { v4 as uuidv4 } from 'uuid';
 
 
+//^ ----------------------------------- 
+//^ -    CREANDO LA LISTA DE TAREAS   - 
+//^ ----------------------------------- 
+
+//^ ----- ----- Crearemos 2 componentes, 1 de "TaskList" y otra de "Task" para separar todo mejor ----- ----- 
+
+//^ ----- ----- 43.- en el "TastLisk" usaremos "map" para recorrer cada objeto en el array de las tareas. Recibiremos las "Tasks" del componente "App" donde se creo el estado ----- ----- 
+
+//^ ----- ----- 43,1.- y usamos un ternario para mostrar un mensaje en caso de que no haya tareas ----- ----- 
+
+const TaskList = ({ tasks }) => {
+    return (
+        <ul>
+            {tasks.length ? 
+            tasks.map(task => <Task key={task.id} task={task} />)
+            :
+            <div>
+                ~ No hay tareas agregadas ~
+            </div>}
+        </ul>
+    )
+}
+
+
+//^ ----- ----- 44.- y en el componente "Task" le pasaremos lo que recorrio el "map" y le pasaremos las propeidades de cada objeto ----- ----- 
+
+//^ ----- ----- 44,1.- tambien le añadiremos "Font Awesome" ----- ----- 
+
+const Task = ({ task }) => {
+    return (
+        <li>
+            <FontAwesomeIcon icon={faCheckSquare}/>
+            <div>
+                {task.text}
+            </div>
+        </li>
+    )
+}
+
+
+//^ ----------------------------------- 
+//^ -      FORMULARIO EDITAR TAREAS   - 
+//^ ----------------------------------- 
+
+//^ ----- ----- Vamos a usar un estado para saber si "editTask" es verdadero, si lo es mostraremos el formulario para editar tareas con un ternario, y si es falso mostramos el "task.text" ----- ----- 
+
+//^ ----- ----- 45.- Podemos cambiar el estado del "editTask" añadiendole un "OnClick" al "Icono" ----- ----- 
+
+<FontAwesomeIcon
+    icon={faEdit}
+    className='task-list__icon task-list__icon-action'
+    onClick={() => setEditTask(!editTask)}
+/>
+
+
+//^ ----- ----- 46.- Como siempre, para trabajar con "formularios" dentro de "React" hay que añadir la propiedad de "value" y "onChange" al "input text", y crear un estadoFN que ira dentro del "onChange", y el estado dentro del "value" ----- ----- 
+
+//^ ----- ----- 47.- El estado "ediTask" tambien lo pondremos dentro del "handleSubmit" para que se active el "edit"  ----- ----- 
+
+// const [newTask, setNewTask] = useState(task.text)
+// const [editTask, setEditTask] = useState(false)
+
+// <input 
+//     value={newTask} 
+//     onChange={(e) => setNewTask(e.target.value)}
+// />
+
+const handleSubmit = (e) => {
+    e.preventDefault()
+    setEditTask(false)
+}
+
+{editTask ?
+    <form action="" onSubmit={handleSubmit} >
+        <input type="text" value={newTask}
+        onChange={(e) => setNewTask(e.target.value)}
+        />
+        <button type="submit">Actualizar</button>
+    </form>
+    : task.text // eslint-disable-line
+}
+<div>
+    <FontAwesomeIcon icon={faEdit} onClick={() => setEditTask(!editTask)}/>
+</div>
+
+
+//^ ----------------------------------- 
+//^ -   FUNCIÓN PARA COMPLETAR LAS TAREAS - 
+//^ ----------------------------------- 
+
