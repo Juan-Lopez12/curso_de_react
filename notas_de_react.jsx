@@ -709,3 +709,158 @@ const handleSubmit = (e) => {
 //^ -   FUNCIÓN PARA COMPLETAR LAS TAREAS - 
 //^ ----------------------------------- 
 
+//^ ----- ----- Crearemos una función "togleDone" en el componente padre, que luego le pasaremos al componente hijo, y en el componente hijo ejecutaremos la función en el icono de "font Awesome" y le pasaremos el "task.id" ----- ----- 
+
+//^ ----- ----- 50.- Hay que pasarle al componente padre tambien, el estado del "App", tomaremos el "setTask" y con un map, recorreremos y con un "if" verificaremos si la id que le pasamos al toggle, es la misma que la de la lista, si es asi, le pasamos todas las "task", y cambiamos el valor de la propeidad "done", si no "else" devolvera cada una de las task ----- ----- 
+
+// const TaskList = ({ tasks, setTask }) => {
+
+//     const toggleDone = (id) => {
+//         setTask(tasks.map(task => {
+//             if (task.id === id) {
+//                 return {...task, done: !task.done}
+//             }
+//             return task
+//         }))
+//     }
+
+//     tasks.map(task => {
+//         // Componente hijo
+//         return <Task key={task.id} task={task} toggleDone={toggleDone} />})
+// }
+
+// // Icono dentro del componente hijo
+// <FontAwesomeIcon 
+//     icon={task.done ? faCheckSquare : faSquare}
+//     onClick={() => toggleDone(task.id)}
+// />
+
+
+//^ ----------------------------------- 
+//^ -   FUNCIÓN PARA EDITAR Y BORRAR TAREAS   - 
+//^ ----------------------------------- 
+
+//^ ----- ----- Usaremos la misma función de "toggleDone" para cambiar de nombre las tareas y para eliminarlas, la logica de identificar la tarea que clickeamos por "id" sera la misma ----- ----- 
+
+//^ ----- ----- Aca buscara si la tarea a la que le dimos click tiene la misma ID que las tareas que ya estan guardadas en el estado, si es asi retornara esa misma tarea con todas sus propiedades y luego editara la propiedad del texto ----- ----- 
+const editNameTask = (id, newText) => {
+    setTask(tasks.map(task => {
+        if (task.id === id) {
+            return {...task, text: newText}
+        }
+        return task
+    }))
+}
+
+//^ ----- ----- Aca el metodo filter regresara SOLO la tarea que tenga el mismo ID que le dimos click con las tareas que ya estan guardadas en el estado, PERO como invertimos con "!==", lo que hara sera regresar todas las tareas menos esa ----- ----- 
+const deleteTask = (id) => {
+    setTask(tasks.filter(task => {
+        if (task.id !== id) {
+            return task
+        }
+        return
+    }))
+}
+
+//^ ----- ----- Le pasaremos las 2 funciones al componente hijo, en el handleSubmit (que se activa al presionar el boton de submit o al presioanr enter) le pasamos el "editNameTask" com los valores del "ID" y el nuevo nombre  ----- ----- 
+
+// const handleSubmit = (e) => {
+//     e.preventDefault()
+//     editNameTask(task.id, newTask) // eslint-disable-line
+//     setEditTask(false)
+// }
+
+//^ ----- ----- Al boton del icono le pasamos la función de "deleteTask" con la id ----- ----- 
+// <FontAwesomeIcon icon={faTimes} onClick={() => deleteTask(task.id)} />
+
+
+//^ ----------------------------------- 
+//^ -    MOSTRAR Y OCULTAR TAREAS COMPLETADAS  - 
+//^ ----------------------------------- 
+
+//^ ----- ----- Crearemos un estado en "App" para mostrar u ocultar las tareas, y le pasaremos el "estado" y la "función del estado" al "Header" para cambiar el icono del Ojo y el texto en el boton de ocultar/mostrar  ----- ----- 
+
+//^ ----- ----- Al "TasList" le pasaremos el estado para mostrar u ocultar las tareas completadas ----- ----- 
+
+const [showDone, setShowDone] = useState(true)
+
+{/* <div>
+    <Header showDone={showDone} setShowDone={setShowDone} />
+    <TaskForm tasks={tasks} setTask={setTask} />
+    <TaskList tasks={tasks} setTask={setTask} showDone={showDone}/>
+</div> */}
+
+
+//^ ----- ----- En el componente de "Header" usaremos un ternario para cambiar el texto y el icono ----- ----- 
+
+//^ ----- ----- Le añadiremos un "onClick" al botón para ejecutar la función de "setShowDone" y cambiar el estado del "showdone" ----- ----- 
+
+const toggleDone = () => {
+    setShowDone(!showDone)
+}
+
+<header >
+    <h1 >Lista de Tareas</h1>
+    <button onClick={() => toggleDone()}>
+        {showDone ? "No mostrar completadas" : "Mostrar completadas"}
+        <FontAwesomeIcon icon={showDone ? faEyeSlash : faEye}/>
+    </button>
+</header>
+
+
+//^ ----- ----- Le pasamos el estado al componente de "TaskList" y en el "map" ejecutamos un "condicional", si "showDone" es "true", mostramos cada una de las tareas, "else if" una de las tareas tiene el "done" en "true", este no se retornara  ---- ----- 
+
+tasks.map(task => { // eslint-disable-line
+    if (showDone) {
+        return <Task
+                    key={task.id} task={task} deleteTask={deleteTask}
+                    toggleDone={toggleDone} editNameTask={editNameTask}
+                />
+    } else if (!task.done) {
+        return <Task
+                    key={task.id} task={task} deleteTask={deleteTask}
+                    toggleDone={toggleDone} editNameTask={editNameTask}
+                />
+    }
+    return
+})
+
+
+//^ ----------------------------------- 
+//^ -       AGREGANDO LOCALSTORAGE    - 
+//^ ----------------------------------- 
+
+//^ ----- ----- Importaremos useEffect[tasks] para ejecutar el "localStorage" cada vez que haya un cambio en las tareas  ----- ----- 
+
+//^ ----- ----- "LocalStorage" solo acepta cadenas de texto, asi que usaremos JSON.stringify() para convertir un ARRAY en una cadena de texto con formato JSON, luego este lo interpretara denuevo en forma de "OBJETO" ----- ----- 
+
+useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(tasks))
+    }, [tasks])
+
+//^ ----- ----- Vamos a obtener el "localStorage" con el metodo "getItem" y lo guardaremos en una variable ----- ----- 
+
+//^ ----- ----- Si no hay ninguna "DATA" guardada nos dara "null", con un ternario le indicaremos que regrese un array vacio, y si hay algun valor, nos devolvera la "tarea" que esta guardada, y se lo pasaremos al estado ----- ----- 
+
+//^ ----- ----- Como el "item" es una cadena de texto, lo volveremos a convertir en un "OBJETO" usando: JSON.parse() ----- ----- 
+
+//^ Si hay un dato devolvera true
+const tasksSaved =
+    localStorage.getItem("tasks") ? JSON.parse(localStorage.getItem("tasks")) : []
+
+const [tasks, setTask] = useState(tasksSaved)
+
+
+//^ ----- ----- Haremos lo mismo con el estado de "showDone", le pondres de nombre de propiedad "showDone", y le asignaremos su valor el estado PERO aca lo convertiremos a string directamente ----- ----- 
+
+//^ ----- ----- Aca pasara lo mismo de que por primera vez, el valor sera "NULL", crearemos una variable y le diremos que si su valor es exactamente igual a "'true'" devuelva "true", si es "falso" o "null" que devuelva "false", y por si acaso usaremos el "nullish operator" para que devuelva un valor en caso de que sea "NULL" ----- ----- 
+
+const configShowDone = localStorage.getItem("showDone") === "true" ?? true
+
+// const [showDone, setShowDone] = useState(configShowDone)
+
+useEffect(() => {
+localStorage.setItem("showDone", showDone.toString())
+}, [showDone])
+
+

@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 
-const TaskForm = ({ tasks, setTask }) => { // eslint-disable-line
+const TaskForm = ({ tasks, setTask }) => {
     const [inputTask, setInputTask] = useState('')
 
     const handleInput = (e) => {
@@ -12,10 +12,10 @@ const TaskForm = ({ tasks, setTask }) => { // eslint-disable-line
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         setTask([...tasks,
             {id: uuidv4(), text: inputTask, done: false}
         ])
+        setInputTask("")
     }
 
     return (

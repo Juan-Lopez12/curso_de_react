@@ -2,38 +2,46 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faEdit, faSquare, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 
-const Task = ({ task }) => { // eslint-disable-line
+const Task = ({ task, toggleDone, editNameTask, deleteTask }) => {
     const [editTask, setEditTask] = useState(false)
-    const [newTask, setNewTask] = useState(task.text) // eslint-disable-line
+    const [newTask, setNewTask] = useState(task.text)
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        editNameTask(task.id, newTask)
         setEditTask(false)
     }
 
     return (
-        <li className="task-list__task" >
-            <FontAwesomeIcon
-            icon={task.done ? faCheckSquare : faSquare} // eslint-disable-line
-            className='task-list__icon task-list__icon-check'
+        <li className="task-list__task">
+            <FontAwesomeIcon 
+                icon={task.done ? faCheckSquare : faSquare}
+                className='task-list__icon task-list__icon-check'
+                onClick={() => toggleDone(task.id)}
             />
             <div className='task-list__text'>
-                {editTask ?
-                <form action="" className="form-edit-task" onSubmit={handleSubmit} >
-                    <input
-                    type="text"
-                    className="form-edit-task__input"
-                    value={newTask}
-                    onChange={(e) => setNewTask(e.target.value)}
-                    />
-                    <button
-                        type="submit"
-                        className="form-edit-task__btn"
+                {editTask
+                ?
+                    <form
+                        action=""
+                        className="form-edit-task"
+                        onSubmit={handleSubmit}
                     >
-                        Actualizar
-                    </button>
-                </form>
-                : task.text // eslint-disable-line
+                        <input
+                            type="text"
+                            className="form-edit-task__input"
+                            value={newTask}
+                            onChange={(e) => setNewTask(e.target.value)}
+                        />
+                        <button
+                            type="submit"
+                            className="form-edit-task__btn"
+                        >
+                            Actualizar
+                        </button>
+                    </form>
+                :
+                    task.text
                 }
             </div>
             <div className="task-list__container-buttons">
@@ -45,6 +53,7 @@ const Task = ({ task }) => { // eslint-disable-line
                 <FontAwesomeIcon
                     icon={faTimes}
                     className='task-list__icon task-list__icon-action'
+                    onClick={() => deleteTask(task.id)}
                 />
             </div>
         </li>
