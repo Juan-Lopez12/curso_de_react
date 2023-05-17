@@ -7,6 +7,8 @@ import './index.css'
 import Button from './elements/Button'
 import ExReducer from './components/ExReducer'
 import Blog from './components/Blog'
+import TestFetch from './components/TestFetch'
+
 
 const App = () => { // eslint-disable-line
   const [session, changeSession] = useState(true)
@@ -26,12 +28,13 @@ const App = () => { // eslint-disable-line
         <FormSession changeSession={changeSession} />        
       </div>
       }
+      <TestFetch />
     </div>
   );
 };
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
     <App />
-  </StrictMode>
+  // </StrictMode>
 )
