@@ -7,7 +7,7 @@ const useFetch = () => {
     
     useEffect(() => {
         setLoading(true)
-        const url = 'https://porn-gallery.p.rapidapi.com/pornos/Adriana%20Chechik';
+        const url = 'https://porn-gallery.p.rapidapi.com/pornos/Lana%20Rhoades';
         const options = {
             method: 'GET',
             headers: {

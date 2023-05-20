@@ -1,5 +1,6 @@
 import useFetch from '../hooks/useFetch'
 import Gallery from './Gallery'
+import Spinner from 'react-bootstrap/Spinner'
 
 const Index = () => {
 
@@ -13,7 +14,10 @@ const Index = () => {
             ?
             <Gallery data={data} loading={loading} />
             :
-            <h3>Cargando datos . . .</h3>
+            <>
+                <h3>Cargando datos . . .</h3>
+                <Spinner animation='border' variant='info' />
+            </>
             }
             <div>
                 {/* {data
