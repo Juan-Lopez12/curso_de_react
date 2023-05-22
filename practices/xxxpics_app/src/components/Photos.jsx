@@ -7,21 +7,33 @@ const Photos = ({ result }) => {
 
     return (
         <div>
-            <Button
-                onClick={() => setOpen(!open)}
-                // aria-controls="example-collapse-text"
-                aria-expanded={open}
-            >
-                {open ? "Ocultar galeria" : "Ver toda la galeria"}
-            </Button>
+            <div className="d-grid gap-2">
+                <Button
+                    onClick={() => setOpen(!open)}
+                    // aria-controls="example-collapse-text"
+                    aria-expanded={open}
+                    variant="outline-info"
+                    size="lg"
+                    style={{ margin: "5px 0px" }}
+                >
+                    {open ? "Ocultar galeria" : "Ver toda la galeria"}
+                </Button>
+            </div>
             <Collapse in={open} >
                 <div style={{ backgroundColor: "pink" }} >
                     {result.images.map((image, index) => (
                         <img
                             src={image}
-                            key={index}
+                            key={ `${result.id}-${index}`}
                             alt={`${result.title} ${index + 1}`}
-                            style={{ maxWidth: "100%", marginBottom: "5px", margin: "10px", boxSizing: "border-box" }}
+                            style={{
+                                maxWidth: "100%",
+                                padding: result.images.length === (index + 1)
+                                    ? "5px"
+                                    : "5px 5px 0 5px",
+                                display: "block",
+                                margin: "auto"
+                            }}
                         />
                         ))
                     }
@@ -29,16 +41,21 @@ const Photos = ({ result }) => {
             </Collapse>
             {open
             ?
-            <Button
-                // Este "href" nos redijira a un elemento "a" y abajo el titulo de cada una de las galerias en el componente "Galery"
-                href={`#${result.id}`}
-                onClick={() => setOpen(false)}
-                aria-expanded={open}
-            >
-                Cerrar galeria
-            </Button>
+                <div className="d-grid gap-2">
+                    <Button
+                        // Este "href" nos redijira a un elemento "a" y abajo el titulo de cada una de las galerias en el componente "Galery"
+                        href={`#${result.id}`}
+                        onClick={() => setOpen(false)}
+                        aria-expanded={open}
+                        variant="outline-danger"
+                        size="lg"
+                        style={{ margin: "5px 0px" }}
+                    >
+                        Cerrar galeria
+                    </Button>
+                </div>
             :
-            <></>
+                <></>
             }
         </div>
     )
