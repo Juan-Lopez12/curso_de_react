@@ -21,11 +21,11 @@ const TaskForm = ({ tasks, setTask }) => {
     return (
         <form action="" className="task-form" onSubmit={handleSubmit} >
             <input
-            type="text"
-            className="task-form__input"
-            placeholder="Escribe una tarea"
-            value={inputTask}
-            onChange={(e) => handleInput(e)}
+                type="text"
+                className="task-form__input"
+                placeholder="Escribe una tarea"
+                value={inputTask}
+                onChange={(e) => handleInput(e)}
             />
             <button type="submit" className="task-form__btn">
                 

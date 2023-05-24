@@ -10,7 +10,7 @@ const Photos = ({ result }) => {
             <div className="d-grid gap-2">
                 <Button
                     onClick={() => setOpen(!open)}
-                    // aria-controls="example-collapse-text"
+                    aria-controls="collapse-photos"
                     aria-expanded={open}
                     variant="outline-info"
                     size="lg"
@@ -26,6 +26,7 @@ const Photos = ({ result }) => {
                             src={image}
                             key={ `${result.id}-${index}`}
                             alt={`${result.title} ${index + 1}`}
+                            loading="lazy"
                             style={{
                                 maxWidth: "100%",
                                 padding: result.images.length === (index + 1)
@@ -43,7 +44,7 @@ const Photos = ({ result }) => {
             ?
                 <div className="d-grid gap-2">
                     <Button
-                        // Este "href" nos redijira a un elemento "a" y abajo el titulo de cada una de las galerias en el componente "Galery"
+                        // Este "href" nos redijira a un elemento "a" (En el componente "Pack") y abajo el titulo de cada una de las galerias en el componente "Galery"
                         href={`#${result.id}`}
                         onClick={() => setOpen(false)}
                         aria-expanded={open}

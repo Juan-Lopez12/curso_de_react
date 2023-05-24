@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react"
 
-
 const useOnObserver = (options) => {
     const containerRef = useRef(null)
     const [isVisible, setIsVisible] = useState(false)
@@ -11,9 +10,7 @@ const useOnObserver = (options) => {
     }
 
     useEffect(() => {
-        
         let containerRefValue = null
-
         const observer = new IntersectionObserver(callbackFunction, options)
 
         if (containerRef.current) {
