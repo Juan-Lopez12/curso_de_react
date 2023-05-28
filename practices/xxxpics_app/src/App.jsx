@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="container">
       <h1>XXX Pics</h1>
-      <Search search={search} setSearch={setSearch} />
+      <Search setSearch={setSearch} />
       <ShowGallery search={search} />
     </div>
   )

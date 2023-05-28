@@ -5,13 +5,10 @@ import { useRef } from 'react'
 const Search = ({ setSearch }) => {
 
     const formValue = useRef(null)
-
     const handleSubmit = (e) => {
-
         e.preventDefault()
         setSearch(formValue.current.value)
-        // console.log(formValue.current.value)
-
+        // console.log(typeof formValue.current.value)
     }
 
     return (

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const useFetch = (url) => {
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
     // const [toggle, setToggle] = useState(false)
     
     useEffect(() => {
@@ -18,11 +19,11 @@ const useFetch = (url) => {
         fetch(url, options)
             .then(response => response.json())
             .then(data => setData(data))
-            .catch(err => console.error(err))
+            .catch(err => setError(err))
             .finally(() => setLoading(false))
     }, [url])
 
-    return { data, loading }
+    return { data, loading, error, setError }
 }
 
 export default useFetch
