@@ -3,7 +3,6 @@ import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 
 const ToastError = ({ setError }) => {
-
     const [show, setShow] = useState(true)
     const toggleShow = () => {
         setShow(!show)

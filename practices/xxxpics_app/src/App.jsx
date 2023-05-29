@@ -1,18 +1,24 @@
 import { useState } from 'react'
+import useFetch from './hooks/useFetch'
 import Search from './components/Search'
 import ShowGallery from './components/ShowGallery'
 
-function App() {
 
+function App() {
   const [search, setSearch] = useState("")
+  const { data, loading, error, setError } = useFetch(
+    search
+    ? `https://porn-gallery.p.rapidapi.com/pornos/${encodeURIComponent(search)}`
+    : `https://porn-gallery.p.rapidapi.com/pornos/Lana%20Rhoades`
+    )
 
   return (
     <div className="container">
-      <h1>XXX Pics</h1>
-      <Search setSearch={setSearch} />
-      <ShowGallery search={search} />
+      {/* <h1>XXX Pics</h1> */}
+      <Search setSearch={setSearch} loading={loading} />
+      <ShowGallery data={data} error={error} setError={setError} />
     </div>
   )
 }
-// useFetch(`https://porn-gallery.p.rapidapi.com/pornos/${encodeURIComponent(search)}`)
+
 export default App
