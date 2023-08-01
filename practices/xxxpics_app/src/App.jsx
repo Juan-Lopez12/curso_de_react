@@ -14,8 +14,7 @@ function App() {
 
   return (
     <div className="container">
-      {/* <h1>XXX Pics</h1> */}
-      <Search setSearch={setSearch} loading={loading} />
+      <Search setSearch={setSearch} data={data} loading={loading} />
       <ShowGallery data={data} error={error} setError={setError} />
     </div>
   )
