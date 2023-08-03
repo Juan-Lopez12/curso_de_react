@@ -1,9 +1,8 @@
-export const topActress = [
+const topActress = [
 	{
 		rank: 1,
 		name: 'Riley Reid',
-		image:
-			'https://img3.hotnessrater.com/4445546/riley-reid-pussy.jpg?w=4000&h=6000',
+		image: 'https://pbs.twimg.com/media/EouWte3VQAQzaMm.jpg:large',
 		// image: 'https://i.ebayimg.com/images/g/9MwAAOSwJfJjsJjA/s-l1600.jpg',
 		// Country: 'Estados Unidos',
 		// height: '',
@@ -16,15 +15,14 @@ export const topActress = [
 	{
 		rank: 3,
 		name: 'Mia Khalifa',
-		image:
-			'https://sexhd.pics/gallery/hustler/mia-khalifa/pretty-ass-clubhouse/mia-khalifa-3.jpg',
+		image: 'https://pbs.twimg.com/media/FrsVCzSXsAEwgvF.jpg:large',
 		// Country:
 	},
 	{
 		rank: 4,
 		name: 'Lana Rhoades',
 		image:
-			'https://www.cronica.com.ar/export/sites/cronica/img/2022/02/10/lana_rhoades2.jpg_2026587605.jpg',
+			'https://www.masterfap.net/profile/lana-rhoades/photos/CPgLER9vDE/lana-rhoades.webp',
 	},
 	{
 		rank: 5,
@@ -44,9 +42,8 @@ export const topActress = [
 	},
 	{
 		rank: 8,
-		name: 'Angela White',
-		image:
-			'https://static-ca-cdn.eporner.com/gallery/ho/Pn/3pb0SbNPnho/721021-angela-white-nude.jpg',
+		name: 'Alina Li',
+		image: 'https://www.babepedia.com/pics/Alina%20Li2.jpg',
 	},
 	{
 		rank: 9,
@@ -83,8 +80,9 @@ export const topActress = [
 	},
 	{
 		rank: 15,
-		name: 'Alina Li',
-		image: 'https://www.babepedia.com/pics/Alina%20Li2.jpg',
+		name: 'Angela White',
+		image:
+			'https://img5.hotnessrater.com/2069828/angela-white.jpg?w=4000&h=6000',
 	},
 	{
 		rank: 16,
@@ -125,7 +123,15 @@ export const topActress = [
 	{
 		rank: 23,
 		name: 'Anna De Ville',
-		iamge:
+		image:
 			'https://img2.badoink.com/content/casts/47277/Anna-De-Ville.jpg?q=80&w=720',
 	},
+	{
+		rank: 24,
+		name: 'Lena Paul',
+		image:
+			'https://cdn-pornstars.porntube.com/0/0/0/0/0/9/0/9/4/1528889660_275x375.jpg',
+	},
 ];
+
+export default topActress;

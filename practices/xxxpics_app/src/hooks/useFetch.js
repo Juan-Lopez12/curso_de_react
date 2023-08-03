@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useFetch = (url) => {
+const useFetch = (url, options) => {
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -8,19 +8,13 @@ const useFetch = (url) => {
 
 	useEffect(() => {
 		setLoading(true);
-		const options = {
-			method: 'GET',
-			headers: {
-				'X-RapidAPI-Key': 'cb12abdb01mshdff8734127f0201p150f4bjsne3a0e3cf55b5',
-				'X-RapidAPI-Host': 'porn-gallery.p.rapidapi.com',
-			},
-		};
+		options;
 		fetch(url, options)
 			.then((response) => response.json())
 			.then((data) => setData(data))
 			.catch(() => setError(true))
 			.finally(() => setLoading(false));
-	}, [url]);
+	}, [url, options]);
 
 	return { data, loading, error, setError };
 };
