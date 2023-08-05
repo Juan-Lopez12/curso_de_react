@@ -553,7 +553,7 @@ const onSubmit = (e) => {
 
 
 //^ ----------------------------------- 
-//^ -   PROYECTO 1  APP DE LISTA DE TAREAS - 
+//^ -   PROYECTO 1  APP DE LISTA DE TAREAS - ------------------------------------------------
 //^ ----------------------------------- 
 
 
@@ -863,4 +863,33 @@ useEffect(() => {
 localStorage.setItem("showDone", showDone.toString())
 }, [showDone])
 
+//^ ----- -----  ----- ----- -----------------------------------------------------------
+
+
+
+//^ ----------------------------------- 
+//^ -           REACT ROUTER          - 
+//^ ----------------------------------- 
+
+
+//^ ----- ----- 51.- '<BrowserRouter>' usamos el componente envolviendo nuestra app para que funcione bien el ruteo (ahora usaremos 'createBrowserRouter' en nuevas versiones) ----- ----- 
+
+
+//^ ----- ----- 52.- '<Link to={}>' Sera el remplazo a los '<a href=''>' para que cuando nos envie a otra ruta no refresque la pagina  ----- ----- 
+
+
+//^ ----- ----- 53.- '<Routes>' envolvera los elementos '<Route>'  ----- ----- 
+
+
+//^ ----- ----- 54.- '<Route path='/' element={<>} >' para crear las rutas  ----- ----- 
+
+//^ ----- ----- 54,1.- la propiedad 'component={}' tambien puede ser usado para renderizar un componente pero sin los '<>' ----- ----- 
+
+//^ ----- ----- 54,2.- 'path={example/:id}' al usar dos puntos estamos diciendole que usaremos rutas dinamicas ----- ----- 
+
+//^ ----- ----- 54,3.- 'path="*"' usando el '*' para crear una pagina de error, el asterisco funciona como para redirigir cualquier url a una misma pagina ----- ----- 
+
+//^ ----- ----- 55.- 'useParams()' nos devolvera las props de una ruta, como la id ----- ----- 
+
+//^ ----- ----- 56.- '<Navigate to={} />' nos redigira a otra ruta ----- ----- 
 
