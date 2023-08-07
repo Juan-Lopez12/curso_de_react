@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useEffect, useRef, useState } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 const Search = ({ setSearch, loading, data }) => {
 	const formValue = useRef(null);
@@ -13,10 +14,13 @@ const Search = ({ setSearch, loading, data }) => {
 		setSearch(formValue.current.value);
 	};
 
+	const navigate = useNavigate();
+
 	const [expanded, setExpanded] = useState(false);
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		setExpanded(false);
+		navigate('/galerias');
 	}, [data]);
 
 	return (
@@ -40,7 +44,8 @@ const Search = ({ setSearch, loading, data }) => {
 					/>
 					<Navbar.Collapse>
 						<Nav className='me-auto'>
-							<Nav.Link>Actrices</Nav.Link>
+							<Link to={'/actrices'}>Actrices</Link>
+							<Link to={'/galerias'}>Galerias</Link>
 						</Nav>
 						<Form
 							onSubmit={handleSubmit}
@@ -77,6 +82,7 @@ const Search = ({ setSearch, loading, data }) => {
 					</Navbar.Collapse>
 				</Container>
 			</Navbar>
+			<Outlet />
 		</div>
 	);
 };

@@ -3,6 +3,8 @@ import useFetch from './hooks/useFetch'
 import Search from './components/Search'
 import ShowGallery from './components/ShowGallery'
 import Actress from './components/Actress';
+import { Route, Routes } from 'react-router-dom';
+import Photos from './components/Photos';
 
 const options = {
   method: 'GET',
@@ -21,11 +23,34 @@ function App() {
     options
     )
 
+	// const { actress } = useParams();
+
+  // console.log(actress)
+
   return (
     <div className="container">
-      <Actress />
-      <Search setSearch={setSearch} data={data} loading={loading} />
-      {/* <ShowGallery data={data} error={error} setError={setError} /> */}
+      <Routes>
+        <Route path='/' element={<Search setSearch={setSearch} data={data} loading={loading} />} >
+          <Route
+            path='/actrices'
+            element={<Actress />}
+          />
+          <Route
+            path='/galerias/'
+            element={
+              <ShowGallery
+                data={data}
+                error={error}
+                setError={setError}
+              />}
+          >
+          </Route>
+            <Route
+              path='galerias/:actress'
+              element={<Photos data={data} />}>
+            </Route>
+        </Route>
+      </Routes>
     </div>
   )
 }

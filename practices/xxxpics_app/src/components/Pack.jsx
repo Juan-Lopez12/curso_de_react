@@ -1,5 +1,4 @@
 import Carousel from 'react-bootstrap/Carousel';
-import Photos from './Photos';
 import useOnObserver from '../hooks/useOnObserver';
 import { useRef } from 'react';
 
@@ -15,7 +14,7 @@ const Pack = ({ result }) => {
 	const models = new Intl.ListFormat('es').format(result.models);
 
 	return (
-		<div style={{ margin: '5px 0px 60px' }}>
+		<div>
 			<h2 ref={ref}>{result.title}</h2>
 			<p>
 				{result.models.length > 1 ? (
@@ -63,10 +62,6 @@ const Pack = ({ result }) => {
 					</Carousel.Item>
 				</Carousel>
 			</div>
-			<Photos
-				result={result}
-				refCurrent={ref.current}
-			/>
 		</div>
 	);
 };
