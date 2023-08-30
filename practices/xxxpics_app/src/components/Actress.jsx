@@ -3,9 +3,14 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import topActress from '../topActress.js';
+import { useEffect } from 'react';
 
 console.log(topActress);
-const Actress = () => {
+const Actress = ({ handleCancelRequest }) => {
+	useEffect(() => {
+		handleCancelRequest();
+	}, []);
+
 	return (
 		<Row
 			xs={1}

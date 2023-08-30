@@ -1,25 +1,43 @@
-import { Outlet } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Gallery from './Gallery';
-import LoadingGallery from './LoadingGallery';
-import ToastError from './ToastError';
+import { useEffect } from 'react';
+// import LoadingGallery from './LoadingGallery';
 
-const ShowGallery = ({ data, error, setError }) => {
+const ShowGallery = ({
+	handleCancelRequest,
+	setQuerySearchURL,
+	savedGalleriesFromDB,
+}) => {
+	const { queryGalleries } = useParams();
+
+	useEffect(() => {
+		setQuerySearchURL(queryGalleries);
+	}, [queryGalleries]);
+
 	return (
 		<div>
-			<ToastError
-				error={error}
-				setError={setError}
-			/>
-			<Outlet />
-			{/* <button onClick={() => console.log(data)}>Nuevo dog!</button> */}
-			{data ? (
-				<Gallery data={data} />
+			{savedGalleriesFromDB ? (
+				<Gallery
+					savedGalleriesFromDB={savedGalleriesFromDB}
+					handleCancelRequest={handleCancelRequest}
+				/>
 			) : (
-				<>
+				<div
+					style={{
+						position: 'absolute',
+						left: '50%',
+						top: '50%',
+						transform: 'translate(-50%, -50%)',
+					}}
+				>
+					<h2>
+						¡No haz buscado nada aún! Usa el buscador para encontrar a tu actriz
+						favorita o genero
+					</h2>
+					{/* <LoadingGallery />
 					<LoadingGallery />
-					<LoadingGallery />
-					<LoadingGallery />
-				</>
+					<LoadingGallery /> */}
+				</div>
 			)}
 		</div>
 	);

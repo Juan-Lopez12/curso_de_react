@@ -1,27 +1,27 @@
 import { Button } from 'react-bootstrap';
-import Pack from './Pack';
+import GalleryCarousel from './GalleryCarousel';
 import { useNavigate } from 'react-router-dom';
-// import Photos from './Photos';
+import './Gallery.css';
 
-const Gallery = ({ data }) => {
-	console.log('Datos cargados!');
-	console.log(data);
-
+const Gallery = ({ savedGalleriesFromDB, handleCancelRequest }) => {
 	const navigate = useNavigate();
 
 	return (
 		<div>
-			{data.results.map((result) => (
+			{savedGalleriesFromDB.map((result) => (
 				<div
 					key={result.id}
-					style={{ margin: '5px 0px 40px' }}
+					style={{ margin: '5px auto 40px', maxWidth: '' }}
+					className='gallery-container'
 				>
-					<Pack result={result} />
+					<GalleryCarousel result={result} />
 					<div className='d-grid gap-2'>
 						<Button
-							onClick={() => navigate(`/galerias/${result.id}`)}
-							aria-controls='collapse-photos'
-							aria-expanded={open}
+							onClick={() => {
+								navigate(`/fotos/${result.id}`);
+								window.scrollTo(0, 0);
+								handleCancelRequest();
+							}}
 							variant='outline-info'
 							size='lg'
 							style={{ margin: '5px' }}
@@ -29,10 +29,6 @@ const Gallery = ({ data }) => {
 							Ver toda la galeria
 						</Button>
 					</div>
-					{/* <Photos
-						result={result}
-						// refCurrent={ref.current}
-					/> */}
 				</div>
 			))}
 		</div>

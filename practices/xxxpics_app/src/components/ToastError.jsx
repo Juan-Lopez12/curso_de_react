@@ -16,7 +16,7 @@ const ToastError = ({ error, setError }) => {
 				show={error}
 				onClose={closeError}
 				bg={'danger'}
-				autohide
+				// autohide
 				style={{ color: 'white' }}
 			>
 				<Toast.Header
@@ -25,8 +25,14 @@ const ToastError = ({ error, setError }) => {
 					<strong>Ha ocurrido un error</strong>
 				</Toast.Header>
 				<Toast.Body>
-					Sin resultados o la búsqueda no coincide. <br /> Prueba usando
-					palabras claves o intenta más tarde.
+					{typeof error === 'string' ? (
+						error
+					) : error ? (
+						<span>
+							Sin resultados o la búsqueda no coincide. <br /> Prueba usando
+							palabras claves o intenta más tarde.
+						</span>
+					) : null}
 				</Toast.Body>
 			</Toast>
 		</ToastContainer>

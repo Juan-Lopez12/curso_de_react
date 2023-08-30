@@ -5,33 +5,41 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useEffect, useRef, useState } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
+import ToastError from './ToastError';
 
-const Search = ({ setSearch, loading, data }) => {
+const Search = ({
+	setSearch,
+	loading,
+	data,
+	error,
+	setError,
+	handleRefetch,
+}) => {
 	const formValue = useRef(null);
+	const [expandedNavbar, setExpandedNavbar] = useState(false);
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setSearch(formValue.current.value);
+		if (!loading) {
+			handleRefetch();
+		}
 	};
 
-	const navigate = useNavigate();
-
-	const [expanded, setExpanded] = useState(false);
 	useEffect(() => {
-		window.scrollTo(0, 0);
-		setExpanded(false);
-		navigate('/galerias');
+		setExpandedNavbar(false);
 	}, [data]);
 
 	return (
 		<div>
 			<Navbar
 				className='fixed-top'
-				style={{ backgroundColor: '#ff82cfe1' }}
+				style={{ backgroundColor: '#ff82cf61', backdropFilter: 'blur(5px)' }}
 				variant='dark'
 				expand='lg'
 				collapseOnSelect
-				expanded={expanded}
+				expanded={expandedNavbar}
 			>
 				<Container>
 					<Navbar.Brand>
@@ -40,7 +48,7 @@ const Search = ({ setSearch, loading, data }) => {
 					<Navbar.Toggle
 						aria-controls='basic-navbar-nav'
 						style={{ backgroundColor: '#e64eac' }}
-						onClick={() => setExpanded(!expanded)}
+						onClick={() => setExpandedNavbar(!expandedNavbar)}
 					/>
 					<Navbar.Collapse>
 						<Nav className='me-auto'>
@@ -62,8 +70,26 @@ const Search = ({ setSearch, loading, data }) => {
 							<Button
 								type='submit'
 								style={{ backgroundColor: '#ae35ff', border: '#ae35ff' }}
+								disabled={loading}
 							>
-								Buscar
+								{!loading ? (
+									'Buscar'
+								) : (
+									<span
+										style={{
+											display: 'flex',
+											justifyContent: 'center',
+											alignItems: 'center',
+										}}
+									>
+										<Spinner
+											animation='border'
+											size='sm'
+											style={{ marginRight: '4px' }}
+										/>
+										Buscando...
+									</span>
+								)}
 							</Button>
 						</Form>
 						{loading && (
@@ -82,6 +108,10 @@ const Search = ({ setSearch, loading, data }) => {
 					</Navbar.Collapse>
 				</Container>
 			</Navbar>
+			<ToastError
+				error={error}
+				setError={setError}
+			/>
 			<Outlet />
 		</div>
 	);
